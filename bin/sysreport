@@ -37,6 +37,7 @@ generate_report() {
     output="Hostname: $(hostname)"
     output="${output}\nDate: $(date)"
     for plugin in $PLUGIN_PATH/*; do
+        [ ! -x "$plugin" ] && continue
         plugin_name=$(basename $plugin)
         plugin_output=$($plugin)
         plugin_status=$?
