@@ -1,3 +1,6 @@
+## 0.2.3
+- check_memory.sh now uses ``top`` to check memory usage.
+
 ## 0.2.2
 - fix worst status detection
 
