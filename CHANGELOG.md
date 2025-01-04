@@ -1,3 +1,6 @@
+## 0.2.2
+- fix worst status detection
+
 ## 0.2.1
 - refactor Makefile.
 - restructure repo.

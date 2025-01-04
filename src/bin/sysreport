@@ -48,7 +48,9 @@ generate_report() {
             output="${output}\n---"
             output="${output}\n${plugin_name}"
             output="${output}\n${plugin_status_text}: ${plugin_output}"
-            worst_status=$plugin_status
+            if [ "$plugin_status" -gt "$worst_status" ]; then
+                worst_status=$plugin_status
+            fi
         fi
     done
     echo "$output"
