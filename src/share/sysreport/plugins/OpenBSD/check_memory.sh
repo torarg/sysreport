@@ -10,7 +10,7 @@ WARN_RC=1
 CRIT_RC=2
 UNKNOWN_RC=3
 
-memory_usage_real=$(top | head -4 | tail -1 | cut -f 3 -d ' ' | cut -f 1 -d '/' | tr -d 'M')
+memory_usage_real=$(top -1 | head -4 | tail -1 | cut -f 3 -d ' ' | cut -f 1 -d '/' | tr -d 'M')
 total_memory=$(echo "$(sysctl -n hw.physmem) / 1024 / 1024" | bc -l)
 memory_usage_percent="$(echo "100 / $total_memory * $memory_usage_real" | bc -l)"
 memory_usage_percent="$(printf %.2f $(echo $memory_usage_percent))"

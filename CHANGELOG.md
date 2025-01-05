@@ -1,3 +1,6 @@
+## 0.2.4
+- ensure top always uses combined cpu stats.
+
 ## 0.2.3
 - check_memory.sh now uses ``top`` to check memory usage.
 

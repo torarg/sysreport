@@ -10,7 +10,7 @@ WARN_RC=1
 CRIT_RC=2
 UNKNOWN_RC=3
 
-cpu_stats="$(top | head -3 | tail -1)"
+cpu_stats="$(top -1 | head -3 | tail -1)"
 
 STATUS=$OK_RC
 OUTPUT="CPU usage is inside expected range ($cpu_stats)."
