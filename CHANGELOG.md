@@ -1,4 +1,5 @@
 ## 0.2.5
+- shorten cpu usage stats
 - add ``check_backup.sh``
 - allow setting of PLUGIN_PATH environment variable for overriding plugin path
 
