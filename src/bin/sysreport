@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PLUGIN_PATH=/usr/local/share/sysreport/plugins/$(uname)
+[ -z "$PLUGIN_PATH" ] && PLUGIN_PATH=/usr/local/share/sysreport/plugins/$(uname)
 
 usage="sysreport [-s]"
 silent=0
