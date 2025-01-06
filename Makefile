@@ -14,6 +14,7 @@ install:
 	install -m 0755 ./src/bin/$(NAME) $(BIN_PATH)
 	cp -r ./src/share/$(NAME)/* $(CONFIG_PATH)/
 	chmod -R go+r $(CONFIG_PATH)/
+	chmod -R go+x $(CONFIG_PATH)/plugins/*
 	find $(CONFIG_PATH)/ -type d -exec chmod go+x {} \;
 
 uninstall:
