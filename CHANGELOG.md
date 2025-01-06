@@ -1,3 +1,6 @@
+## 0.2.6
+- add content type field to report.
+
 ## 0.2.5
 - shorten cpu usage stats
 - add ``check_backup.sh``

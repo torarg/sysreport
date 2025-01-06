@@ -36,6 +36,7 @@ get_status_text() {
 generate_report() {
     output="Hostname: $(hostname)"
     output="${output}\nDate: $(date)"
+    output="${output}\nType: sysreport"
     for plugin in $PLUGIN_PATH/*; do
         [ ! -x "$plugin" ] && continue
         plugin_name=$(basename $plugin)
