@@ -1,7 +1,7 @@
 NAME                                   =       sysreport
 PREFIX                                 ?=      /usr/local
 CONFIG_PATH                            =       ${PREFIX}/share/$(NAME)
-BIN_PATH                               =       ${PREFIX}/bin/$(NAME)
+BIN_PATH                               =       ${PREFIX}/bin/
 OPENBSD_PORTS_DIR              =       /usr/ports/sysutils/$(NAME)
 OPENBSD_PKG_DIR                        =       /usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR =       /usr/ports/packages/amd64/all/signed
@@ -11,14 +11,14 @@ OPENBSD_PKG_HOST               =       www
 
 install:
 	install -m 0755 -d $(CONFIG_PATH)
-	install -m 0755 ./src/bin/$(NAME) $(BIN_PATH)
+	install -m 0755 ./src/bin/* $(BIN_PATH)
 	cp -r ./src/share/$(NAME)/* $(CONFIG_PATH)/
 	chmod -R go+r $(CONFIG_PATH)/
 	chmod -R go+x $(CONFIG_PATH)/plugins/*
 	find $(CONFIG_PATH)/ -type d -exec chmod go+x {} \;
 
 uninstall:
-	rm -r $(CONFIG_PATH) $(BIN_PATH)
+	rm -r $(CONFIG_PATH) $(BIN_PATH)/{sysreport,reportify}
 
 all:
 

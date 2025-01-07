@@ -1,0 +1,42 @@
+#!/bin/sh
+
+usage="usage: reportify [-hV] -t report_type -c report_command"
+version="0.0.1"
+
+err_echo() {
+    echo "$1" 1>&2
+}
+
+while getopts hVt:c: flag; do
+    case $flag in
+        h) echo "$usage" && exit 0 ;;
+        V) echo "$version" && exit 0 ;;
+        t) report_type="$OPTARG" ;;
+        c) report_command="$OPTARG" ;;
+    esac
+done
+
+if [ -z "$report_type" ] || [ -z "$report_command" ]; then
+    err_echo "missing options"
+    err_echo "$usage"
+    exit 1
+fi
+
+echo "Hostname: $(hostname)"
+echo "Date: $(date)"
+echo "Type: $report_type"
+echo "---"
+
+output="$(eval " $report_command" 2>&1)"
+
+report_rc="$?"
+
+if [ "$report_rc" -eq 0 ]; then
+    report_status="OK"
+else
+    report_status="CRITICAL"
+fi
+
+echo "$report_command"
+echo "$report_status: Exit code $report_rc"
+echo "$output"
