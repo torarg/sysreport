@@ -37,6 +37,7 @@ else
     report_status="CRITICAL"
 fi
 
-echo "$report_command"
+echo "Command: $report_command"
 echo "$report_status: Exit code $report_rc"
+echo "--"
 echo "$output"
