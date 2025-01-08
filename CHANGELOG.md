@@ -1,3 +1,6 @@
+## 0.2.9
+- improve reportify output
+
 ## 0.2.8
 - improve reportify output
 
