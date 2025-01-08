@@ -39,4 +39,4 @@ fi
 
 echo "Command: $report_command"
 echo "$report_status: Exit code $report_rc"
-[ -n "$output" ] && echo "--\n${output}"
+[ -n "$output" ] && echo "--\n${output}" |  sed 's/^---$/----/g'
