@@ -1,3 +1,6 @@
+## 0.2.7
+- add ``reportify`` to reportify command output.
+
 ## 0.2.6
 - add content type field to report.
 
