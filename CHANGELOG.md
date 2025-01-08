@@ -1,3 +1,6 @@
+## 0.2.8
+- improve reportify output
+
 ## 0.2.7
 - add ``reportify`` to reportify command output.
 
