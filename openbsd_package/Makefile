@@ -1,5 +1,5 @@
 DISTNAME		=	sysreport-${V}
-V				=	0.2.10
+V				=	0.2.11
 COMMENT			=	creates system health reports.
 CATEGORIES		=	sysutils
 
