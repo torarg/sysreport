@@ -1,3 +1,6 @@
+## 0.2.10
+- reportify: add ``-s`` flag to surpress output when command rc equals 0
+
 ## 0.2.9
 - improve reportify output
 
