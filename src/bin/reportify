@@ -1,6 +1,6 @@
 #!/bin/sh
 
-usage="usage: reportify [-hV] -t report_type -c report_command"
+usage="usage: reportify [-hVs] -t report_type -c report_command"
 version="0.0.1"
 
 err_echo() {
