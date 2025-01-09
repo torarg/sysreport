@@ -7,12 +7,14 @@ err_echo() {
     echo "$1" 1>&2
 }
 
-while getopts hVt:c: flag; do
+silent=0
+while getopts hVst:c: flag; do
     case $flag in
         h) echo "$usage" && exit 0 ;;
         V) echo "$version" && exit 0 ;;
         t) report_type="$OPTARG" ;;
         c) report_command="$OPTARG" ;;
+        s) silent=1 ;;
     esac
 done
 
@@ -39,4 +41,8 @@ fi
 
 echo "Command: $report_command"
 echo "$report_status: Exit code $report_rc"
-[ -n "$output" ] && echo "--\n${output}" |  sed 's/^---$/----/g'
+
+
+if [ "$silent" -eq "0" ] || [ "$report_rc" -ne "0" ]; then
+    [ -n "$output" ] && echo "--\n${output}" |  sed 's/^---$/----/g'
+fi
