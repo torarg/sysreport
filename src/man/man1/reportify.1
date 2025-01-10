@@ -1,0 +1,49 @@
+.Dd $Mdocdate$
+.Dt REPORTIFY 1
+.Os
+.Sh NAME
+.Nm reportify
+.Nd reportifies a given command
+.Sh SYNOPSIS
+.Nm reportify
+.Op Fl hsV
+.Fl t Ar type
+.Fl c Ar command
+.Sh DESCRIPTION
+.Nm
+executes a given command and prints a
+.Xr sysreport 1
+compliant report to stdout.
+.Nm
+output can be used as input for 
+.Xr sysview 1
+to generate or update a static html monitoring dashboard.
+.Pp
+The options are as follows: 
+.Bl -tag -width Ds
+.It Fl c Ar command
+Command to execute.
+.It Fl h
+Print usage.
+.It Fl V
+Print version.
+.It Fl s
+Silent flag. Omit
+.Ar command
+stdout from report if exit code is zero.
+.It Fl t Ar type
+Value for the "Type:" field in the generated report.
+.Sh EXAMPLES
+Execute a backup script and report the status back to
+.Xr sysview 1 .
+Also reduce the size required in the
+.Xr sysview 1
+dashboard by omitting the backup script's stdout on success:
+.Bd -literal -offset indent
+$ reportify -s -t backup -c "backup.sh" | ssh www sysview /var/www/htdocs/sysview
+.Ed
+.Pp
+.Sh SEE ALSO
+.Xr sysreport 1
+.Sh AUTHORS
+.An Michael Wilson Aq Mt mw@1wilson.org
