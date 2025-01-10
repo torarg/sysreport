@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[ -z "$PLUGIN_PATH" ] && PLUGIN_PATH=/usr/local/share/sysreport/plugins/$(uname)
+[ -z "$SR_PLUGIN_PATH" ] && SR_PLUGIN_PATH=/usr/local/share/sysreport/plugins/$(uname)
 
 usage="usage: sysreport [-hsV]"
 worst_status=0
@@ -40,7 +40,7 @@ generate_report() {
     output="Hostname: $(hostname)"
     output="${output}\nDate: $(date)"
     output="${output}\nType: sysreport"
-    for plugin in $PLUGIN_PATH/*; do
+    for plugin in $SR_PLUGIN_PATH/*; do
         [ ! -x "$plugin" ] && continue
         plugin_name=$(basename $plugin)
         plugin_output=$($plugin)
