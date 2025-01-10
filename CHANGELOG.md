@@ -1,4 +1,5 @@
 ## 0.2.12
+- add man page for ``reportify``
 - add man page for ``sysreport``
 
 ## 0.2.11
