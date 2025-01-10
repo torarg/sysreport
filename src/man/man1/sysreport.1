@@ -1,0 +1,59 @@
+.Dd $Mdocdate$
+.Dt SYSVIEW 1
+.Os
+.Sh NAME
+.Nm sysreport
+.Nd create system health reports
+.Sh SYNOPSIS
+.Nm sysreport
+.Op Fl hsV
+.Sh DESCRIPTION
+.Nm
+executes plugins in
+.Ev "PLUGIN_PATH"
+and generates a system health report from their output and exit codes.
+.Nm
+output can be used as input for 
+.Xr sysview 1
+to generate a static html monitoring dashboard.
+.Pp
+The options are as follows: 
+.Bl -tag -width Ds
+.It Fl h
+Print usage.
+.It Fl V
+Print version.
+.It Fl s
+Silent flag. Only generates a report if any plugin's exit code is not zero.
+This can be useful to configure alerting.
+.Sh ENVIRONMENT
+.Bl -tag -width SR_PLUGIN_PATH
+.It Ev SR_PLUGIN_PATH
+The plugin path
+.Nm
+uses. Defaults to "/usr/local/share/sysreport/plugins".
+.Sh EXAMPLES
+Add or update a host's
+.Nm
+on a remote
+web server's
+.Xr sysview 1
+dashboard:
+.Bd -literal -offset indent
+$ sysreport | ssh www sysview /var/www/htdocs/sysview
+.Ed
+.Pp
+Alerting can be achieved by configuring a cron job that executes
+.Nm
+with the silent flag and pipes it's output into the
+.Xr mail 1
+command using the -E option to prevent sending empty messages.
+.Bd -literal -offset indent
+0 * * * * -s /usr/local/bin/sysreport -s | mail -E -s sysreport alerts@example.org
+.Ed
+.Pp
+
+.Sh SEE ALSO
+.Xr sysreport 1
+.Sh AUTHORS
+.An Michael Wilson Aq Mt mw@1wilson.org
