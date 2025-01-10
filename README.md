@@ -1,4 +1,4 @@
-# src/man/man1/reportify.1
+# reportify
 REPORTIFY(1) - General Commands Manual
 
 ## NAME
@@ -61,7 +61,7 @@ dashboard by omitting the backup script's stdout on success:
 
 sysreport(1)
 
-# src/man/man1/sysreport.1
+# sysreport
 SYSREPORT(1) - General Commands Manual
 
 ## NAME
