@@ -1,3 +1,6 @@
+## 0.2.12
+- add man page for ``sysreport``
+
 ## 0.2.11
 - reportify: fix usage string.
 - sysreport: remove ``check_backup.sh``
