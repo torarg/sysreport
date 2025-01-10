@@ -1,7 +1,5 @@
 #!/bin/sh
 
-INSTALL_DIR="."
-PLUGIN_PATH="$INSTALL_DIR/plugins"
 WARNING=80
 CRITICAL=90
 
