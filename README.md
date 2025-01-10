@@ -1,67 +1,63 @@
-# sysreport
+SYSREPORT(1) - General Commands Manual
 
-sysreport creates system health reports and writes them to STDOUT.
+# NAME
 
-I created sysreport as a simple monitoring tool for my personal servers. It
-executes a bunch of plugins and generates a report. That's it.
+**sysreport** - create system health reports
 
+# SYNOPSIS
 
-## usage
+**sysreport**
+\[**-hsV**]
 
-To generate a full health report:
+# DESCRIPTION
 
-```
-# sysreport
-Hostname: fileserver.example.org
-Date: Fri Jan  3 11:34:29 CET 2025
----
-check_cpu.sh
-OK: CPU usage is inside expected range.
----
-check_disk.sh
-OK: All disk usage values inside expected boundries.
----
-check_services.sh
-CRITICAL: httpd not running.
-```
+**sysreport**
+executes plugins in
+`PLUGIN_PATH`
+and generates a system health report from their output and exit codes.
+**sysreport**
+output can be used as input for
+sysview(1)
+to generate a static html monitoring dashboard.
 
+The options are as follows:
 
-Use the silent flag to only generate a report if any plugin has a return code
-greater than 0:
+**-h**
 
+> Print usage.
 
-```
-# sysreport -s
-Hostname: fileserver.example.org
-Date: Fri Jan  3 11:34:40 CET 2025
----
-check_services.sh
-CRITICAL: httpd not running.
-```
+**-V**
 
-## cronjob
+> Print version.
 
-When using the silent flag (``-s``) it's easy to configure alerting by
-just piping the output into the ``mail`` command:
+**-s**
 
-```
-# crontab -l
-0 * * * * -s /usr/local/bin/sysreport -s | mail -E -s sysreport sysreport@example.org
-```
+> Silent flag. Only generates a report if any plugin's exit code is not zero.
+> This can be useful to configure alerting.
 
-This cronjob generates a sysreport every hour and if something is deemed 
-unhealthy also sends an email to sysreport@example.org.
+# ENVIRONMENT
 
-## plugins
+`SR_PLUGIN_PATH`
 
-Plugins are losely inspired by the nagios/icinga monitoring plugins, i.e. they
-match the return code semantics of those (0=OK, 1=WARN, 2=CRITICAL, 3=UNKNOWN).
+> The plugin path
+> **sysreport**
+> uses. Defaults to "/usr/local/share/sysreport/plugins".
 
-Plugins are installed in ``/usr/local/share/sysreport/plugins/``.    
-sysreport tries to execute every file in this path and generates its
-status report from the gathered output and return codes.
+# EXAMPLES
 
-Currently plugins are executed without any arguments to keep things simpler.
-So limit values and stuff one might want to configure is currently hardcoded
-in the plugins. This may or may not change in the future depending on my
-needs.
+Add or update a host's
+**sysreport**
+on a remote
+web server's
+sysview(1)
+dashboard:
+
+	$ sysreport | ssh www sysview /var/www/htdocs/sysview
+
+Alerting can be achieved by configuring a cron job that executes
+**sysreport**
+with the silent flag and pipes it's output into the
+mail(1)
+command using the -E option to prevent sending empty messages.
+
+	0 * * * * -s /usr/local/bin/sysreport -s | mail -E -s sysreport alerts@example.org
