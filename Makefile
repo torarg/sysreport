@@ -1,4 +1,5 @@
 NAME                                   =       sysreport
+DESCR								   =	   "Generate system health reports."
 PREFIX                                 ?=      /usr/local
 CONFIG_PATH                            =       ${PREFIX}/share/$(NAME)
 BIN_PATH                               =       ${PREFIX}/bin
@@ -77,3 +78,9 @@ publish-tag:
 	git push --tags
 
 release: bumpversion release-tag publish-tag publish-pkg
+
+doc:
+	for file in src/man/man$(MAN_SECTION)/*; do \
+		progname=$$(echo $$(basename $$file) | cut -f 1 -d '.') && \
+		mandoc -T markdown < $$file  | sed -e '/^# AUTHORS.*/,$$$\d' -e 's/^# /## /g' > docs/$$progname.md; \
+	done
