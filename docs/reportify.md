@@ -1,17 +1,17 @@
 REPORTIFY(1) - General Commands Manual
 
-## NAME
+# NAME
 
 **reportify** - reportifies a given command
 
-## SYNOPSIS
+# SYNOPSIS
 
 **reportify**
 \[**-hsV**]
 **-t**&nbsp;*type*
 **-c**&nbsp;*command*
 
-## DESCRIPTION
+# DESCRIPTION
 
 **reportify**
 executes a given command and prints a
@@ -46,7 +46,7 @@ The options are as follows:
 
 > Value for the "Type:" field in the generated report.
 
-## EXAMPLES
+# EXAMPLES
 
 Execute a backup script and report the status back to
 sysview(1).
@@ -56,7 +56,12 @@ dashboard by omitting the backup script's stdout on success:
 
 	$ reportify -s -t backup -c "backup.sh" | ssh www sysview /var/www/htdocs/sysview
 
-## SEE ALSO
+# SEE ALSO
 
 sysreport(1)
 
+# AUTHORS
+
+Michael Wilson &lt;[mw@1wilson.org](mailto:mw@1wilson.org)&gt;
+
+OpenBSD 7.6 - January 10, 2025

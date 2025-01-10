@@ -1,15 +1,15 @@
 SYSREPORT(1) - General Commands Manual
 
-## NAME
+# NAME
 
 **sysreport** - create system health reports
 
-## SYNOPSIS
+# SYNOPSIS
 
 **sysreport**
 \[**-hsV**]
 
-## DESCRIPTION
+# DESCRIPTION
 
 **sysreport**
 executes plugins in
@@ -35,7 +35,7 @@ The options are as follows:
 > Silent flag. Only generates a report if any plugin's exit code is not zero.
 > This can be useful to configure alerting.
 
-## ENVIRONMENT
+# ENVIRONMENT
 
 `SR_PLUGIN_PATH`
 
@@ -43,7 +43,7 @@ The options are as follows:
 > **sysreport**
 > uses. Defaults to "/usr/local/share/sysreport/plugins".
 
-## EXAMPLES
+# EXAMPLES
 
 Add or update a host's
 **sysreport**
@@ -62,7 +62,12 @@ command using the -E option to prevent sending empty messages.
 
 	0 * * * * -s /usr/local/bin/sysreport -s | mail -E -s sysreport alerts@example.org
 
-## SEE ALSO
+# SEE ALSO
 
 sysview(1)
 
+# AUTHORS
+
+Michael Wilson &lt;[mw@1wilson.org](mailto:mw@1wilson.org)&gt;
+
+OpenBSD 7.6 - January 10, 2025

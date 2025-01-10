@@ -82,5 +82,5 @@ release: bumpversion release-tag publish-tag publish-pkg
 doc:
 	for file in src/man/man$(MAN_SECTION)/*; do \
 		progname=$$(echo $$(basename $$file) | cut -f 1 -d '.') && \
-		mandoc -T markdown < $$file  | sed -e '/^# AUTHORS.*/,$$$\d' -e 's/^# /## /g' > docs/$$progname.md; \
+		mandoc -T markdown < $$file > docs/$$progname.md; \
 	done
