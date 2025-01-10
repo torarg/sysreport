@@ -1,28 +1,36 @@
 NAME                                   =       sysreport
 PREFIX                                 ?=      /usr/local
 CONFIG_PATH                            =       ${PREFIX}/share/$(NAME)
-BIN_PATH                               =       ${PREFIX}/bin/
+BIN_PATH                               =       ${PREFIX}/bin
+MAN_SECTION                            =       1
+MAN_PATH                               =       ${PREFIX}/man/man$(MAN_SECTION)
 OPENBSD_PORTS_DIR              =       /usr/ports/sysutils/$(NAME)
 OPENBSD_PKG_DIR                        =       /usr/ports/packages/amd64/all
 OPENBSD_SIGNED_PKG_DIR =       /usr/ports/packages/amd64/all/signed
 OPENBSD_PKG_KEY                        =       ~/keys/signify/1wilson-pkg.sec
 OPENBSD_PKG_HOST               =       www
 
-
-install:
-	install -m 0755 -d $(CONFIG_PATH)
-	install -m 0755 ./src/bin/* $(BIN_PATH)
-	cp -r ./src/share/$(NAME)/* $(CONFIG_PATH)/
-	chmod -R go+r $(CONFIG_PATH)/
-	chmod -R go+x $(CONFIG_PATH)/plugins/*
-	find $(CONFIG_PATH)/ -type d -exec chmod go+x {} \;
-
-uninstall:
-	rm -r $(CONFIG_PATH) $(BIN_PATH)/{sysreport,reportify}
-
 all:
 
 clean:
+
+install:
+	install -m 0644 ./src/man/man1/* $(MAN_PATH)/
+	install -m 0755 -d $(CONFIG_PATH)
+	install -m 0755 ./src/bin/* $(BIN_PATH)/
+	cp -r ./src/share/$(NAME)/* $(CONFIG_PATH)/
+	chmod -R go+r $(CONFIG_PATH)/
+	find $(CONFIG_PATH)/ -type d -exec chmod go+x {} \;
+	find $(CONFIG_PATH)/plugins -type f -exec chmod go+x {} \;
+
+uninstall:
+	for progname in $$(ls ./src/bin); do \
+		echo "rm -fr $(BIN_PATH)/$$progname" ; \
+		rm -fr $(BIN_PATH)/$$progname ; \
+		echo "rm -fr $(MAN_PATH)/$$progname.1" ; \
+		rm -fr $(MAN_PATH)/$$progname.1 ; \
+	done
+	rm -fr $(CONFIG_PATH)
 
 clean-pkg:
 	rm -fr /usr/ports/pobj/$(NAME)-*
@@ -47,7 +55,7 @@ pkg: clean-pkg
 publish-pkg: pkg
 	scp $(OPENBSD_SIGNED_PKG_DIR)/$(NAME)-*.tgz www:
 	ssh $(OPENBSD_PKG_HOST) "\
-		doas rm /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/$(NAME)-*.tgz && \
+		doas rm /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/$(NAME)-*.tgz ; \
 		doas cp $(NAME)-*.tgz /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/ && \
 		doas rm $(NAME)-*.tgz && \
 		doas chown www /var/www/htdocs/pub/OpenBSD/snapshots/packages/amd64/$(NAME)-*.tgz \
