@@ -50,7 +50,7 @@ generate_report() {
 
         if [ "$plugin_status" -gt 0 ] || [ "$silent" -eq 0 ]; then
             output="${output}\n---"
-            output="${output}\n${plugin_name}"
+            output="${output}\nCommand: ${plugin_name}"
             output="${output}\n${plugin_status_text}: ${plugin_output}"
             if [ "$plugin_status" -gt "$worst_status" ]; then
                 worst_status=$plugin_status
