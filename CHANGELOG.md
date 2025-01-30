@@ -1,3 +1,6 @@
+## 0.2.13
+- add "Command:" field to sysreport output
+
 ## 0.2.12
 - add man page for ``reportify``
 - add man page for ``sysreport``
