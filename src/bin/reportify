@@ -44,5 +44,5 @@ echo "$report_status: Exit code $report_rc"
 
 
 if [ "$silent" -eq "0" ] || [ "$report_rc" -ne "0" ]; then
-    [ -n "$output" ] && echo "--\n${output}" |  sed 's/^---$/----/g'
+    [ -n "$output" ] && echo -e "--\n${output}" |  sed 's/^---$/----/g'
 fi
