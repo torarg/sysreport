@@ -57,11 +57,10 @@ generate_report() {
             fi
         fi
     done
-    echo "$output"
 }
 
-report=$(generate_report)
+generate_report
 
 if [ "$worst_status" -gt 0 ] || [ "$silent" -eq 0 ]; then
-    echo "$report"
+    echo "${output}"
 fi
