@@ -1,4 +1,5 @@
 ## 0.2.13
+- fix linux output formatting
 - add "Command:" field to sysreport output
 
 ## 0.2.12
