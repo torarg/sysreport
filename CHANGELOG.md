@@ -1,3 +1,6 @@
+## 0.2.14
+- use absolute executable paths when using doas
+
 ## 0.2.13
 - fix linux output formatting
 - add "Command:" field to sysreport output

@@ -8,7 +8,7 @@ UNKNOWN_RC=3
 STATUS=$OK_RC
 OUTPUT="All enabled services are running."
 
-failed_services="$(doas rcctl ls failed)"
+failed_services="$(doas /usr/sbin/rcctl ls failed)"
 
 if [ "$failed_services" != "" ]; then
     STATUS=$CRIT_RC

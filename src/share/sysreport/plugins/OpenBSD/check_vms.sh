@@ -14,7 +14,7 @@ if [ ! -S /var/run/vmd.sock ]; then
     exit $STATUS
 fi
 
-vm_status="$(doas vmctl status | grep -v running | grep -v CURMEM | awk '{ print $9 }' )"
+vm_status="$(doas /usr/sbin/vmctl status | grep -v running | grep -v CURMEM | awk '{ print $9 }' )"
 
 if [ "$vm_status" != "" ]; then
     STATUS=$CRIT_RC
