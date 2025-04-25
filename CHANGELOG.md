@@ -1,3 +1,6 @@
+## 0.3.0
+- add certificate check
+
 ## 0.2.14
 - use absolute executable paths when using doas
 
