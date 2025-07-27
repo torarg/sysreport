@@ -10,21 +10,28 @@ WARN_RC=1
 CRIT_RC=2
 UNKNOWN_RC=3
 
-memory_usage_real=$(top -1 | head -4 | tail -1 | cut -f 3 -d ' ' | cut -f 1 -d '/' | tr -d 'M')
-total_memory=$(echo "$(sysctl -n hw.physmem) / 1024 / 1024" | bc -l)
-memory_usage_percent="$(echo "100 / $total_memory * $memory_usage_real" | bc -l)"
+output_unit="M"
+
+bytes_per_page="$(vmstat -s | grep 'bytes per page' | awk '{ print $1 }')"
+total_pages="$(vmstat -s | grep 'pages managed' | awk '{ print $1 }')"
+active_pages="$(vmstat -s | grep 'pages active' | awk '{ print $1 }')"
+
+total_memory="$(echo "$total_pages * $bytes_per_page / 1024 / 1024" | bc -l )"
+total_memory="$(printf %.2f $(echo $total_memory))"
+used_memory="$(echo "$active_pages * $bytes_per_page / 1024 / 1024" | bc -l )"
+used_memory="$(printf %.2f $(echo $used_memory))"
+
+memory_usage_percent="$(echo "100 / $total_memory * $used_memory" | bc -l)"
 memory_usage_percent="$(printf %.2f $(echo $memory_usage_percent))"
 
-STATUS=$OK_RC
-OUTPUT="Memory usage is inside expected range ($memory_usage_percent%)."
 
+STATUS=$OK_RC
+OUTPUT="${used_memory}${output_unit}/${total_memory}${output_unit} in use ($memory_usage_percent%)."
 
 if [ "$(echo "$memory_usage_percent > $CRITICAL" | bc -l)" -eq 1 ]; then
     STATUS=$CRIT_RC
-    OUTPUT="Memory usage is $memory_usage_percent%."
 elif [ "$(echo "$memory_usage_percent> $WARNING" | bc -l)" -eq 1 ]; then
     STATUS=$WARN_RC
-    OUTPUT="Memory usage is $memory_usage_percent%."
 fi
 
 
