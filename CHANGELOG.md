@@ -1,3 +1,6 @@
+## 0.3.1
+- use vmstat as source for check_memory.sh
+
 ## 0.3.0
 - add certificate check
 
